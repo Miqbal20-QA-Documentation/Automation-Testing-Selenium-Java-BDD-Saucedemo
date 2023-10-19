@@ -10,36 +10,30 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Cart {
+public class Cart { // Class
     public WebDriver driver;
     public String baseUrl = "https://saucedemo.com";
     public Integer timeout = 1000;
 
-    /**
-     *  Constructor
-     * **/
-    public Cart() {
+
+    public Cart() { // Constructor
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
-
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
     }
 
-    /**
-     *  Login
-     * **/
-
-    @Given("User on Dashboard Pages Saucedemo")
-    public void userOnDashboardPagesSaucedemo() throws InterruptedException {
+    public void Login() { // Method
         this.driver.get(baseUrl);
         this.driver.findElement(By.id("user-name")).sendKeys("standard_user");
         this.driver.findElement(By.id("password")).sendKeys("secret_sauce");
         this.driver.findElement(By.id("login-button")).click();
-        Thread.sleep(timeout);
+    }
+
+    @Given("User on Dashboard Pages Saucedemo")
+    public void userOnDashboardPagesSaucedemo() throws InterruptedException {
+        Login();
     }
 
     /**

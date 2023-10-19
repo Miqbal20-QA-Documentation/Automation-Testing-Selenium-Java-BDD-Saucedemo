@@ -14,6 +14,7 @@ public class Authentication {
     public String baseUrl = "https://saucedemo.com";
     public Integer timeout = 1000;
 
+
     /**
      *  Constructor
      * **/
