@@ -9,8 +9,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/saucedemo/cucumber/features",
         glue = "saucedemo.cucumber.steps",
-        plugin = {"html:target/HTML_report.html"}
+        plugin = {"html:src/test/java/saucedemo/cucumber/reports/HTML_report.html"}
 )
 
 public class Run {
+
+
 }

@@ -6,6 +6,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 
+
 import java.time.Duration;
 
 public class Authentication {
@@ -19,7 +20,7 @@ public class Authentication {
     public Authentication() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+//        options.addArguments("--headless=new");
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
