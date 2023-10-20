@@ -5,15 +5,22 @@ import org.junit.Assert;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
+import saucedemo.cucumber.function.LoginFunction;
+import saucedemo.cucumber.function.addCartFunction;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Cart { // Class
+
+
     public WebDriver driver;
     public String baseUrl = "https://saucedemo.com";
-    public Integer timeout = 1000;
+    public Integer timeout = 500;
+
+    public addCartFunction addCart = new addCartFunction();
 
 
     public Cart() { // Constructor
@@ -24,29 +31,23 @@ public class Cart { // Class
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
     }
 
-    public void Login() { // Method
-        this.driver.get(baseUrl);
-        this.driver.findElement(By.id("user-name")).sendKeys("standard_user");
-        this.driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        this.driver.findElement(By.id("login-button")).click();
-    }
-
     @Given("User on Dashboard Pages Saucedemo")
     public void userOnDashboardPagesSaucedemo() throws InterruptedException {
-        Login();
+        LoginFunction login = new LoginFunction();
+        login.UserLogin(this.driver);
     }
 
-    /**
-     *  Item Cart
-     * **/
+    // Add to Item Cart
     @And("User choose an item and click Add to cart button")
-    public void user_choose_an_item_and_click_add_to_cart_button() {
-        this.driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+    public void user_choose_an_item_and_click_add_to_cart_button() throws InterruptedException {
+        addCart.addOneItem(this.driver);
+        Thread.sleep(timeout);
     }
 
     @And("User click shopping cart badges")
-    public void user_click_shopping_cart_badges() {
+    public void user_click_shopping_cart_badges() throws InterruptedException {
         this.driver.findElement(By.id("shopping_cart_container")).click();
+        Thread.sleep(timeout);
     }
 
     @Then("User redirect to Your Cart Page")
@@ -66,26 +67,8 @@ public class Cart { // Class
     }
 
     @And("User choose items and click Add to cart button")
-    public void user_choose_items_and_click_add_to_cart_button() {
-
-        Object[][] items = {
-                {"add-to-cart-sauce-labs-backpack"},
-                {"add-to-cart-sauce-labs-bike-light"},
-                {"add-to-cart-sauce-labs-bolt-t-shirt"},
-                {"add-to-cart-sauce-labs-fleece-jacket"},
-                {"add-to-cart-sauce-labs-onesie"},
-                {"add-to-cart-test.allthethings()-t-shirt-(red)"},
-        };
-        int indexItem = 0;
-        while (true){
-            if(indexItem < items.length){
-                String element = (String) items[indexItem][0];
-                this.driver.findElement(By.id(element)).click();
-                indexItem += 1;
-            } else {
-                break;
-            }
-        }
+    public void user_choose_items_and_click_add_to_cart_button() throws InterruptedException {
+        addCart.addAllItem(this.driver);
     }
 
     @And("All Item that have been added before are displayed in the cart")

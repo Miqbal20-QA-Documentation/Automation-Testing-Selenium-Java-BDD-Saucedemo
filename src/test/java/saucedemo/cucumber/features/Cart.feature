@@ -1,4 +1,4 @@
-Feature: Saucedemo Cart Test
+Feature: Cart Test
 
   @Positive @Cart
   Scenario: Verify Success User able to add an item to cart
